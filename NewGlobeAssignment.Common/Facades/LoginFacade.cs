@@ -3,7 +3,7 @@ using NewGlobeAssignment.Common.Pages;
 
 namespace NewGlobeAssignment.Common.Facades
 {
-    public class LoginFacade
+    public class LoginFacade : BaseFacade
     {
         private readonly MicrosoftLoginPage _loginPage;
 
@@ -12,8 +12,8 @@ namespace NewGlobeAssignment.Common.Facades
             _loginPage = new MicrosoftLoginPage();
         }
 
-        public void LoginViaMs(string userEmail = UserCredentialsConstants.MicrosoftDefaultUserName,
-                               string userPassword = UserCredentialsConstants.MicrosoftDefaultUserPassword)
+        public void LoginViaMs(string? userEmail,
+                               string? userPassword)
         {
             _loginPage.EmailField().SendKeys(userEmail);
             _loginPage.NextButton().Click();

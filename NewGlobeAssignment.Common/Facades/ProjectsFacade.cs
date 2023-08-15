@@ -1,5 +1,5 @@
-﻿using NewGlobeAssignment.Common.Pages;
-using NewGlobeAssignment.Common.WebElements;
+﻿using NewGlobeAssignment.Common.Models.UiModels;
+using NewGlobeAssignment.Common.Pages;
 
 namespace NewGlobeAssignment.Common.Facades
 {
@@ -17,9 +17,14 @@ namespace NewGlobeAssignment.Common.Facades
         //     return _mainPage.Projects();
         // }
 
-        public string GetProjectText()
+        public ProjectMainPageModel GetProjectInfoFromMainPageByName(string projectName)
         {
-            return _mainPage.ProjectDescriptionByName("asd").GetText();
+            return new ProjectMainPageModel
+            {
+                ProjectName = projectName,
+                ProjectDescription = _mainPage.ProjectDescriptionByName(projectName).Text,
+                ProjectKey = _mainPage.ProjectKeyByName(projectName).Text
+            };
         }
     }
 }

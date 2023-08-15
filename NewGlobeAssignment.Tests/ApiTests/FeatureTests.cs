@@ -1,19 +1,13 @@
 using FluentAssertions;
 using NewGlobeAssignment.Common.Constants;
-using NewGlobeAssignment.Common.Models.Feature;
+using NewGlobeAssignment.Common.Models.ApiModels.Feature;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace NewGlobeAssignment.Tests
+namespace NewGlobeAssignment.Tests.ApiTests
 {
     internal class FeatureTests : ApiTestBase
     {
-        [SetUp]
-        public void Setup()
-        {
-            
-        }
-
         [Test]
         public async Task Test1()
         {

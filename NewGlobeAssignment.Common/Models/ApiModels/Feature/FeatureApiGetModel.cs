@@ -1,4 +1,4 @@
-﻿namespace NewGlobeAssignment.Common.Models.Feature
+﻿namespace NewGlobeAssignment.Common.Models.ApiModels.Feature
 {
     public class FeatureApiGetModel
     {

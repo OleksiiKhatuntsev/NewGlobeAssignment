@@ -1,17 +1,19 @@
-﻿using NewGlobeAssignment.Common.WebElements;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace NewGlobeAssignment.Common.Pages
 {
     internal class MainPage : BasePage
     {
-        // todo should be rewritten with generics, using the ElementBase as genericType
-        public IEnumerable<Button> Projects()
+        public IEnumerable<IWebElement> Projects()
         {
-            var elements = GetElements(By.XPath("//div[@class='card project-card']"));
-            return elements.Select(webElement => new Button(webElement)).ToList();
+            IEnumerable<IWebElement> elements = GetElements(By.XPath("//div[@class='card project-card']"));
+            return elements;
         }
 
-        public Label ProjectDescriptionByName(string name) => new(GetElement(By.XPath("//*[text() = 'Project Name')]")));
+        public IWebElement ProjectDescriptionByName(string name) =>
+            GetElement(By.XPath($"//*[contains(text(), '{name}')]//ancestor::div[@class = 'card project-card']//span[@class = 'card-description']"));
+
+        public IWebElement ProjectKeyByName(string name) =>
+            GetElement(By.XPath($"//*[contains(text(), '{name}')]//ancestor::div[@class = 'card project-card']//div[contains(@class, 'card-field')]//p[@class = 'field-value']"));
     }
 }

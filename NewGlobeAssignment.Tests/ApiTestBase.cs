@@ -1,7 +1,4 @@
-﻿using NewGlobeAssignment.Common.Constants;
-using NewGlobeAssignment.Common.Helpers;
-using NewGlobeAssignment.Common.Models;
-using System.Net.Http;
+﻿using NewGlobeAssignment.Common.Helpers;
 using NUnit.Framework;
 
 namespace NewGlobeAssignment.Tests
@@ -12,16 +9,13 @@ namespace NewGlobeAssignment.Tests
 
         public ApiTestBase()
         {
-            HttpClient = new HttpClient();
+            HttpClient = HttpClientHelpers.GetHttpClient();
         }
 
         [OneTimeSetUp]
-        public void SetUp()
+        public void ApiSetUp()
         {
-            HttpClient.DefaultRequestHeaders.Authorization = HttpClientHeaderHelpers.GetBasicAuthorizationHeader(
-                new UserCredentials(UserCredentialsConstants.BasicDefaultUserName, UserCredentialsConstants.BasicDefaultUserPassword));
-
-            HttpClientHeaderHelpers.SetAllRequiredHeadersExceptAuthentication(HttpClient);
+            
         }
     }
 }

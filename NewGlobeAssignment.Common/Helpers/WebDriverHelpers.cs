@@ -3,11 +3,11 @@ using OpenQA.Selenium;
 
 namespace NewGlobeAssignment.Common.Helpers
 {
-    public class WebDriverHelper
+    public class WebDriverHelpers
     {
         private static readonly IWebDriver Driver;
 
-        static WebDriverHelper()
+        static WebDriverHelpers()
         {
             Driver = new ChromeDriver();
         }

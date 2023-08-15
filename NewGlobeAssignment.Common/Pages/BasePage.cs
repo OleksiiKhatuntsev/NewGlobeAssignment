@@ -1,26 +1,19 @@
 ﻿using OpenQA.Selenium;
 using NewGlobeAssignment.Common.Helpers;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using OpenQA.Selenium.DevTools;
-using System.Diagnostics;
+
 
 namespace NewGlobeAssignment.Common.Pages
 {
     internal class BasePage
     {
-        protected readonly IWebDriver Driver = WebDriverHelper.GetDriver();
-
-        private static readonly TimeSpan Timeout = TimeSpan.FromSeconds(8);
-        private static readonly int StepsNumber = 10;
-        private static readonly TimeSpan LowerLimit = TimeSpan.FromMilliseconds(1000);
-        private static readonly TimeSpan UpperLimit = TimeSpan.FromMilliseconds(3000);
+        protected readonly IWebDriver Driver = WebDriverHelpers.GetDriver();
 
         protected IWebElement GetElement(By by)
         {
             try
             {
-                return ForCondition(() => Driver.FindElement(by) != null, () => Driver.FindElement(by));
+                return WaitHelpers.ForCondition(() => Driver.FindElement(by) != null, () => Driver.FindElement(by));
             }
             catch
             {
@@ -28,54 +21,33 @@ namespace NewGlobeAssignment.Common.Pages
             }
         }
 
-        private static T ForCondition<T>(Func<bool> condition, Func<T> function, TimeSpan timeout = default, string timeoutMessage = "Element is not displayed or enabled")
+        protected IWebElement GetClickableElement(By by, int timeoutInSeconds = 10)
         {
-            if (timeout == default)
+            for (int i = 0; i < 2; i++)
             {
-                timeout = Timeout;
-            }
-
-            var stopwatch = Stopwatch.StartNew();
-            var step = CalculateTimeStep(timeout);
-            var counter = 0;
-            while (stopwatch.Elapsed < timeout)
-            {
-                counter++;
                 try
                 {
-                    if (condition())
-                    {
-                        return function != null ? function.Invoke() : default;
-                    }
+                    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(timeoutInSeconds / 2));
+                    wait.IgnoreExceptionTypes(typeof(StaleElementReferenceException), typeof(ElementClickInterceptedException));
+                    return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(Driver.FindElement(by)));
                 }
-                catch 
-                {
-                    //ignore all exceptions during waiting for condition
-                }
-                Thread.Sleep(step);
+                catch
+                { }
             }
 
-            var errorMessage = $"Condition wasn't fulfilled for {timeout.TotalSeconds} seconds, total attempts: {counter}. Message: {timeoutMessage}. Stacktrace: {new StackTrace()}.";
-            throw new Exception(errorMessage);
+            return null;
         }
 
         protected IEnumerable<IWebElement> GetElements(By by)
         {
             try
             {
-                return ForCondition(() => Driver.FindElements(by).Count > 0, () => Driver.FindElements(by));
+                return WaitHelpers.ForCondition(() => Driver.FindElements(by).Count > 0, () => Driver.FindElements(by));
             }
             catch
             {
                 return new List<IWebElement>();
             }
-        }
-
-
-        private static TimeSpan CalculateTimeStep(TimeSpan timeout)
-        {
-            var step = TimeSpan.FromMilliseconds(timeout.TotalMilliseconds / StepsNumber);
-            return step < LowerLimit ? LowerLimit : step > UpperLimit ? UpperLimit : step;
         }
     }
 }
