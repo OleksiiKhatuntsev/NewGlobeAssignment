@@ -1,21 +1,14 @@
 ﻿using NewGlobeAssignment.Common.Helpers;
-using NUnit.Framework;
 
 namespace NewGlobeAssignment.Tests
 {
-    internal class ApiTestBase
+    public abstract class ApiTestBase
     {
         protected readonly HttpClient HttpClient;
 
-        public ApiTestBase()
+        protected ApiTestBase()
         {
             HttpClient = HttpClientHelpers.GetHttpClient();
-        }
-
-        [OneTimeSetUp]
-        public void ApiSetUp()
-        {
-            
         }
     }
 }

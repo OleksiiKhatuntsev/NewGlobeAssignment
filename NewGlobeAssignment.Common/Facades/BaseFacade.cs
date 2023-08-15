@@ -1,15 +1,18 @@
-﻿using NewGlobeAssignment.Common.Helpers;
-using OpenQA.Selenium;
+﻿using NewGlobeAssignment.Common.Pages;
 
 namespace NewGlobeAssignment.Common.Facades
 {
     public abstract class BaseFacade
     {
-        private IWebDriver _driver;
+        private protected readonly FeaturePage FeaturePage;
+        private protected readonly MainPage MainPage;
+        private protected readonly MicrosoftLoginPage LoginPage;
 
         public BaseFacade()
         {
-            _driver = WebDriverHelpers.GetDriver();
+            FeaturePage = new FeaturePage();
+            MainPage = new MainPage();
+            LoginPage = new MicrosoftLoginPage();
         }
     }
 }

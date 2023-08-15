@@ -17,7 +17,7 @@ namespace NewGlobeAssignment.Common.Helpers
 
         public static void SetUserAgentHeader(HttpClient httpClient)
         {
-            httpClient.DefaultRequestHeaders.Add(HeadersConstants.UserAgent, "Application-Name/1.0.0 (Operating System Name 1.0.0)");
+            httpClient.DefaultRequestHeaders.Add(HeadersConstants.UserAgent, Environment.OSVersion.ToString());
         }
 
         public static void SetAllRequiredHeadersExceptAuthentication(HttpClient httpClient)

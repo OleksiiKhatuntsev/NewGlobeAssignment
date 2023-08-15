@@ -23,11 +23,11 @@ namespace NewGlobeAssignment.Common.Pages
 
         protected IWebElement GetClickableElement(By by, int timeoutInSeconds = 10)
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 10; i++)
             {
                 try
                 {
-                    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(timeoutInSeconds / 2));
+                    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(timeoutInSeconds / 10));
                     wait.IgnoreExceptionTypes(typeof(StaleElementReferenceException), typeof(ElementClickInterceptedException));
                     return wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(Driver.FindElement(by)));
                 }

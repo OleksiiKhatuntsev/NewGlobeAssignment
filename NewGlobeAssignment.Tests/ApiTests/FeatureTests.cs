@@ -11,7 +11,7 @@ namespace NewGlobeAssignment.Tests.ApiTests
         [Test]
         public async Task Test1()
         {
-            var response = await HttpClient.GetAsync($"{UrlConstants.TestSiteUrl}{ApiPathConstants.FeaturesStatusGet}");
+            var response = await HttpClient.GetAsync($"{UrlConstants.ApiBaseUrl}{PathConstants.FeaturesStatusGet}");
             var result = await response.Content.ReadAsStringAsync();
             var requestBody = JsonConvert.DeserializeObject<List<FeatureApiGetModel>>(result);
             response.StatusCode.ToString().Should().Be("OK");
