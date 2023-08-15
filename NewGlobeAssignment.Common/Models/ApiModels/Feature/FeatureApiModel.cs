@@ -2,6 +2,7 @@
 {
     public class FeatureApiModel<T>
     {
+        #region Properties
 
         public bool Active { get; set; }
 
@@ -25,5 +26,6 @@
 
         public List<VariationApiModel> Variations { get; set; }
 
+        #endregion
     }
 }

@@ -7,8 +7,13 @@ namespace NewGlobeAssignment.Common.Helpers
 {
     public static class HttpClientHeaderHelpers
     {
-        public static AuthenticationHeaderValue GetBasicAuthorizationHeader(UserCredentials userCredentials) => new (AuthenticationSchemesConstants.BasicScheme,
-            Convert.ToBase64String(Encoding.ASCII.GetBytes($"{userCredentials.UserName}:{userCredentials.Password}")));
+        #region Public Method
+
+        public static AuthenticationHeaderValue GetBasicAuthorizationHeader(UserCredentials userCredentials)
+        {
+            return new(AuthenticationSchemesConstants.BasicScheme,
+                Convert.ToBase64String(Encoding.ASCII.GetBytes($"{userCredentials.UserName}:{userCredentials.Password}")));
+        }
 
         public static void SetXRequestIdHeader(HttpClient httpClient)
         {
@@ -25,6 +30,7 @@ namespace NewGlobeAssignment.Common.Helpers
             SetXRequestIdHeader(httpClient);
             SetUserAgentHeader(httpClient);
         }
-        
+
+        #endregion
     }
 }

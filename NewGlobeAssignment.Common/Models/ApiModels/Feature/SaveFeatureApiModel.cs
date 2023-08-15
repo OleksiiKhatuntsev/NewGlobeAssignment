@@ -2,6 +2,8 @@
 {
     public class SaveFeatureApiModel<T>
     {
+        #region Properties
+
         public bool Active { get; set; }
 
         public string ChangedBy { get; set; }
@@ -17,5 +19,7 @@
         public string Type { get; set; }
 
         public List<VariationApiModel> Variations { get; set; }
+
+        #endregion
     }
 }

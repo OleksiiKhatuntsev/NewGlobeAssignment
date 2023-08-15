@@ -8,8 +8,10 @@ using OpenQA.Selenium;
 
 namespace NewGlobeAssignment.Tests.UiTests
 {
-    public class UiTestBase : ApiTestBase
+    public abstract class UiTestBase : ApiTestBase
     {
+        #region Fields
+
         protected readonly IWebDriver Driver;
         protected readonly LoginFacade LoginFacade;
         protected readonly ProjectsFacade ProjectsFacade;
@@ -20,6 +22,10 @@ namespace NewGlobeAssignment.Tests.UiTests
         protected readonly string ProjectChangedBy = "ChangedBy" + DateTime.Now;
         protected ProjectApiModel? Project;
 
+        #endregion
+
+        #region Constructors
+
         public UiTestBase()
         {
             Driver = WebDriverHelpers.GetDriver();
@@ -27,6 +33,10 @@ namespace NewGlobeAssignment.Tests.UiTests
             ProjectsFacade = new ProjectsFacade();
             FeatureFacade = new FeatureFacade();
         }
+
+        #endregion
+
+        #region Public Method
 
         [OneTimeSetUp]
         public void OneTimeBaseSetUp()
@@ -59,5 +69,7 @@ namespace NewGlobeAssignment.Tests.UiTests
         {
             Driver.Close();
         }
+
+        #endregion
     }
 }

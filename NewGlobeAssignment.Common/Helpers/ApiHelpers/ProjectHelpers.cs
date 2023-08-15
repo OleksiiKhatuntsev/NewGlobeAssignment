@@ -6,14 +6,26 @@ namespace NewGlobeAssignment.Common.Helpers.ApiHelpers
 {
     public static class ProjectHelpers
     {
+        #region Fields
+
         private static readonly HttpClient HttpClient;
+
+        #endregion
+
+        #region Constructors
 
         static ProjectHelpers()
         {
             HttpClient = HttpClientHelpers.GetHttpClient();
         }
 
-        public static async Task<ProjectApiModel?> PostNewProject(string name = "Default name", string description = "Default description", string changedBy = "Default userName")
+        #endregion
+
+        #region Public Method
+
+        public static async Task<ProjectApiModel?> PostNewProject(string name = "Default name",
+                                                                  string description = "Default description",
+                                                                  string changedBy = "Default userName")
         {
             var newProjectModel = new SaveProjectApiModel
             {
@@ -23,18 +35,23 @@ namespace NewGlobeAssignment.Common.Helpers.ApiHelpers
                 Name = name
             };
 
-            var response = await HttpClient.PostAsync($"{UrlConstants.ApiBaseUrl}{PathConstants.Projects}", JsonHelpers.GetStringContentForPostRequest(newProjectModel));
+            var response = await HttpClient.PostAsync($"{UrlConstants.ApiBaseUrl}{PathConstants.Projects}",
+                JsonHelpers.GetStringContentForPostRequest(newProjectModel));
+
             return JsonConvert.DeserializeObject<ProjectApiModel>(await response.Content.ReadAsStringAsync());
         }
 
         public static async Task<ProjectApiModel?> GetProjectByKey(string key)
         {
-            return JsonConvert.DeserializeObject<ProjectApiModel>(await (await HttpClient.GetAsync($"{UrlConstants.ApiBaseUrl}{PathConstants.Projects}/{key}")).Content.ReadAsStringAsync());
+            return JsonConvert.DeserializeObject<ProjectApiModel>(
+                await (await HttpClient.GetAsync($"{UrlConstants.ApiBaseUrl}{PathConstants.Projects}/{key}")).Content.ReadAsStringAsync());
         }
 
         public static async Task DeleteProjectByKey(string key)
         {
             await HttpClient.DeleteAsync($"{UrlConstants.ApiBaseUrl}{PathConstants.Projects}/{key}");
         }
+
+        #endregion
     }
 }

@@ -3,15 +3,30 @@ using OpenQA.Selenium;
 
 namespace NewGlobeAssignment.Common.Helpers
 {
-    public class WebDriverHelpers
+    public static class WebDriverHelpers
     {
+        #region Fields
+
         private static readonly IWebDriver Driver;
+
+        #endregion
+
+        #region Constructors
 
         static WebDriverHelpers()
         {
             Driver = new ChromeDriver();
         }
 
-        public static IWebDriver GetDriver() => Driver;
+        #endregion
+
+        #region Public Method
+
+        public static IWebDriver GetDriver()
+        {
+            return Driver;
+        }
+
+        #endregion
     }
 }

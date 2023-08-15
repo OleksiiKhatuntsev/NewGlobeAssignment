@@ -4,6 +4,8 @@ namespace NewGlobeAssignment.Common.Facades
 {
     public class ProjectsFacade : BaseFacade
     {
+        #region Public Method
+
         public ProjectMainPageModel GetProjectInfoFromMainPageByName(string projectName)
         {
             return new ProjectMainPageModel
@@ -13,5 +15,7 @@ namespace NewGlobeAssignment.Common.Facades
                 ProjectKey = MainPage.ProjectKeyByName(projectName).Text
             };
         }
+
+        #endregion
     }
 }

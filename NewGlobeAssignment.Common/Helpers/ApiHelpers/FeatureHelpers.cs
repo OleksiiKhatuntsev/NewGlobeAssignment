@@ -6,12 +6,22 @@ namespace NewGlobeAssignment.Common.Helpers.ApiHelpers
 {
     public static class FeatureHelpers
     {
+        #region Fields
+
         private static readonly HttpClient HttpClient;
+
+        #endregion
+
+        #region Constructors
 
         static FeatureHelpers()
         {
             HttpClient = HttpClientHelpers.GetHttpClient();
         }
+
+        #endregion
+
+        #region Public Method
 
         public static async Task<FeatureApiModel<bool>> CreateEmptyBooleanFeatureForProject(string projectKey,
                                                                                             bool active,
@@ -87,5 +97,7 @@ namespace NewGlobeAssignment.Common.Helpers.ApiHelpers
 
             return JsonConvert.DeserializeObject<VariationApiModel>(await response.Content.ReadAsStringAsync());
         }
+
+        #endregion
     }
 }
